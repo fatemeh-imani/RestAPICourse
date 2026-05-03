@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\d\\REST\\RestAPICourse\\Movies.API\\Movies.API.csproj": {}
+    "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.API\\Movies.API.csproj": {}
   },
   "projects": {
-    "F:\\d\\REST\\RestAPICourse\\Movies.API\\Movies.API.csproj": {
+    "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.API\\Movies.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\d\\REST\\RestAPICourse\\Movies.API\\Movies.API.csproj",
+        "projectUniqueName": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.API\\Movies.API.csproj",
         "projectName": "Movies.API",
-        "projectPath": "F:\\d\\REST\\RestAPICourse\\Movies.API\\Movies.API.csproj",
+        "projectPath": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.API\\Movies.API.csproj",
         "packagesPath": "C:\\Users\\imani\\.nuget\\packages\\",
-        "outputPath": "F:\\d\\REST\\RestAPICourse\\Movies.API\\obj\\",
+        "outputPath": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,11 +33,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "F:\\d\\REST\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj": {
-                "projectPath": "F:\\d\\REST\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj"
+              "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj": {
+                "projectPath": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj"
               },
-              "F:\\d\\REST\\RestAPICourse\\Movies.Contracts\\Movies.Contracts.csproj": {
-                "projectPath": "F:\\d\\REST\\RestAPICourse\\Movies.Contracts\\Movies.Contracts.csproj"
+              "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Contracts\\Movies.Contracts.csproj": {
+                "projectPath": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Contracts\\Movies.Contracts.csproj"
               }
             }
           }
@@ -86,14 +86,14 @@
         }
       }
     },
-    "F:\\d\\REST\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj": {
+    "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\d\\REST\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj",
+        "projectUniqueName": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj",
         "projectName": "Movies.Applications",
-        "projectPath": "F:\\d\\REST\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj",
+        "projectPath": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj",
         "packagesPath": "C:\\Users\\imani\\.nuget\\packages\\",
-        "outputPath": "F:\\d\\REST\\RestAPICourse\\Movies.Apllications\\obj\\",
+        "outputPath": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Apllications\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -158,14 +158,14 @@
         }
       }
     },
-    "F:\\d\\REST\\RestAPICourse\\Movies.Contracts\\Movies.Contracts.csproj": {
+    "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Contracts\\Movies.Contracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\d\\REST\\RestAPICourse\\Movies.Contracts\\Movies.Contracts.csproj",
+        "projectUniqueName": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Contracts\\Movies.Contracts.csproj",
         "projectName": "Movies.Contracts",
-        "projectPath": "F:\\d\\REST\\RestAPICourse\\Movies.Contracts\\Movies.Contracts.csproj",
+        "projectPath": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Contracts\\Movies.Contracts.csproj",
         "packagesPath": "C:\\Users\\imani\\.nuget\\packages\\",
-        "outputPath": "F:\\d\\REST\\RestAPICourse\\Movies.Contracts\\obj\\",
+        "outputPath": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Contracts\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

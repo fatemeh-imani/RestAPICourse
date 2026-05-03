@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Lw6UibdKTKA=",
+  "dgSpecHash": "+d2r4pRppYs=",
   "success": true,
-  "projectFilePath": "F:\\d\\REST\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj",
+  "projectFilePath": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.7\\microsoft.extensions.dependencyinjection.abstractions.10.0.7.nupkg.sha512"
   ],
