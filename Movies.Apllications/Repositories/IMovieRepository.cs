@@ -1,19 +1,19 @@
-﻿using Movies.Applications.Models;
+﻿using Movies.Applications.DataBaces.Models;
+using Movies.Contracts.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Movies.Applications.MovieRpositories
+namespace Movies.Applications.MovieRepositories
 {
-    public interface IMovieRpository
+    public interface IMovieRepository
     {
-        Task<bool> CreatAsync(Movie movie);
+        public Task SaveAsyn();
+        Task CreateAsync(Movie movie);
         Task<Movie> GetByIdAsync (Guid id);
         Task<Movie> GetBySlugAsync (string Slug);
         Task<IEnumerable<Movie>> GetAllAsync();
-        Task<bool> UpdateAsync(Movie movie);
-        Task<bool> DeleteByIdAsync(Guid id);
     }
 }

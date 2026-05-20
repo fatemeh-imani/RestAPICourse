@@ -1,4 +1,4 @@
-﻿namespace Movies.API.MagicStrings
+﻿namespace Movies.Applications.MagicStrings
 {
     public static class ApiEndpoints
     {

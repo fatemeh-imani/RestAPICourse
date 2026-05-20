@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using Movies.Applications;
-using Movies.Applications.MovieRpositories;
+using Movies.Applications.DataBaces.DBContext;
+using Movies.Applications.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IMovieRpository, MovieRepository>();
-builder.Services.AddAplication();
+builder.Services.AddApplication(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,5 +26,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<RestDBContext>();
+
+    await DbSeeder.SeedAsync(context);
+}
+
 
 app.Run();

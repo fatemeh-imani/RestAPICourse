@@ -1,19 +1,29 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Movies.Applications.MovieRpositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Movies.Applications.DataBaces.DBContext;
+using Movies.Applications.MovieRepositories;
+using Movies.Applications.Repositories;
+using Movies.Applications.Services;
+
 
 namespace Movies.Applications
 {
-    public static class ApplicationServiceCollectionExtentions
+    public static class ApplicationServiceCollectionExtensions
     {
-        public static IServiceCollection AddAplication(this IServiceCollection services)
+        public static IServiceCollection AddApplication(
+            this IServiceCollection services ,
+                 IConfiguration configuration)
         {
-            services.AddSingleton<IMovieRpository,MovieRepository>();
+            services.AddDbContext<RestDBContext>(option =>
+                                 option.UseSqlServer(
+                                    configuration.GetConnectionString("RestConnection")));
+
+            services.AddScoped<IMovieRepository,MovieRepository>();
+            services.AddScoped<IMovieService,MovieService>();
+            services.AddScoped<IGenreRepository, GenreRpository>();
+            services.AddScoped<IGenreService, GenreService>();
+
             return services;
         }
     }
