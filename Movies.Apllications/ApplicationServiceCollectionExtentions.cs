@@ -5,7 +5,8 @@ using Movies.Applications.DataBaces.DBContext;
 using Movies.Applications.MovieRepositories;
 using Movies.Applications.Repositories;
 using Movies.Applications.Services;
-
+using FluentValidation;
+using Movies.Applications.Validator;
 
 namespace Movies.Applications
 {
@@ -19,6 +20,7 @@ namespace Movies.Applications
                                  option.UseSqlServer(
                                     configuration.GetConnectionString("RestConnection")));
 
+            services.AddValidatorsFromAssemblyContaining<IApplicationMarker>();
             services.AddScoped<IMovieRepository,MovieRepository>();
             services.AddScoped<IMovieService,MovieService>();
             services.AddScoped<IGenreRepository, GenreRpository>();

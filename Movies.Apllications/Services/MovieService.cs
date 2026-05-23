@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Movies.Applications.DataBaces.Models;
 using Movies.Applications.Enums;
@@ -14,16 +15,27 @@ namespace Movies.Applications.Services
 {
     public class MovieService(
         IMovieRepository _movieRepository,
-        IGenreRepository _genreRepository
+        IGenreRepository _genreRepository,
+        IValidator<CreateMovieRequste> _createValidator,
+         IValidator<UpdateMovieRequste> _updateValidator
         ) : IMovieService
     {
         public async Task<MovieResponce> CreateAsync(CreateMovieRequste movieRequest)
         {
-            var  movie = new Movie
+            await _createValidator.ValidateAndThrowAsync( movieRequest );
+
+            var slug = SlugGenerator.Generate(movieRequest.Title, movieRequest.YearOfRelease);
+
+            var existingMovie = await _movieRepository.GetBySlugAsync(slug);
+
+            if (existingMovie != null)
+                throw new Exception("Movie with same slug already exists");
+
+            var movie = new Movie
             {
                 Title = movieRequest.Title,
                 YearOfRelease = movieRequest.YearOfRelease,
-                Slug = SlugGenerator.Generate(movieRequest.Title, movieRequest.YearOfRelease)
+                Slug = slug
 
             };
 
@@ -99,6 +111,8 @@ namespace Movies.Applications.Services
 
         public async Task<MovieResponce?> UpdateAsync(UpdateMovieRequste updateMovie , Guid id)
         {
+            await _updateValidator.ValidateAndThrowAsync(updateMovie);
+
            var movie = await _movieRepository.GetByIdAsync(id);
 
             if (movie is null) return null;

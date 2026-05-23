@@ -3,16 +3,16 @@ using Movies.Contracts.Requests;
 
 namespace Movies.Applications.Validator
 {
-    public class MovieValidator : AbstractValidator<CreateMovieRequste>
+    public class UpdateValidator  : AbstractValidator<UpdateMovieRequste>
     {
-        public MovieValidator()
+        public UpdateValidator()
         {
             ValidateTitle();
             ValidateYearOfRelease();
             ValidateGenre();
         }
 
-        private void  ValidateTitle()
+        private void ValidateTitle()
         {
             RuleFor(x => x.Title)
                 .NotEmpty()
@@ -26,13 +26,12 @@ namespace Movies.Applications.Validator
             //این هم حد بالا را کنترل می‌کند هم پایین را.
         }
 
-
-
         private void ValidateGenre()
         {
             RuleFor(x => x.GenreIds)
                 .NotEmpty();
-                
+
         }
     }
 }
+
