@@ -1,15 +1,13 @@
-﻿using Azure.Core;
+﻿
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
+
 using Movies.Applications.DataBaces.Models;
-using Movies.Applications.Enums;
+
 using Movies.Applications.MovieRepositories;
 using Movies.Applications.Utilities;
-using Movies.Contracts.DTO;
+
 using Movies.Contracts.Requests;
 using Movies.Contracts.Responces;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 
 namespace Movies.Applications.Services
 {

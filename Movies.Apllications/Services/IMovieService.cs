@@ -1,6 +1,6 @@
-﻿using Movies.Applications.Enums;
+﻿
 using Movies.Applications.DataBaces.Models;
-using Movies.Contracts.DTO;
+
 using Movies.Contracts.Requests;
 using Movies.Contracts.Responces;
 

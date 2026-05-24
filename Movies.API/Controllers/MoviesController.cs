@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Movies.Applications.Mapping;
-using Movies.Applications.DataBaces.Models;
-using Movies.Applications.MovieRepositories;
+
 using Movies.Applications.Services;
 using Movies.Contracts.Requests;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Movies.Applications.Controllers
 {
