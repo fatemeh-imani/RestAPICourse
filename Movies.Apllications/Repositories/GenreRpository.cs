@@ -12,13 +12,14 @@ namespace Movies.Applications.Repositories
 {
     public class GenreRpository(RestDBContext _context) : IGenreRepository
     {
-        public async Task<IEnumerable<Genre>> GetByIdsAsync(IEnumerable<Guid> ids)
+        public async Task<IEnumerable<Genre>> GetByIdsAsync(IEnumerable<Guid> ids
+                                                            , CancellationToken token = default)
         {
             ids = ids.Distinct();
 
             return await _context.Genres
                 .Where(g => ids.Contains(g.Id))
-                   .ToListAsync();
+                   .ToListAsync(token);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Movies.Applications.Validator
         {
             RuleFor(x => x.YearOfRelease)
                 .NotEmpty()
-                .InclusiveBetween(19888, DateTime.UtcNow.Year);
+                .InclusiveBetween(1988, DateTime.UtcNow.Year);
             //این هم حد بالا را کنترل می‌کند هم پایین را.
         }
 

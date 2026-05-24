@@ -13,9 +13,11 @@ namespace Movies.Applications.Controllers
     {
      
         [HttpPost(MagicStrings.ApiEndpoints.Movies.Create)]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateMovieRequste request)
+        public async Task<IActionResult> CreateAsync([FromBody] CreateMovieRequste request
+                                                     ,CancellationToken token)
+        //متدهایی که async هستند و کار I/O دارند توکن بگذار
         {
-         var movie = await _movieService.CreateAsync(request);
+            var movie = await _movieService.CreateAsync(request , token);
 
             return CreatedAtRoute("GetMovie" , new { idOrSlug = movie.Id }, movie);
         }
@@ -25,11 +27,12 @@ namespace Movies.Applications.Controllers
         
 
         [HttpGet(MagicStrings.ApiEndpoints.Movies.Get, Name = "GetMovie")]
-        public async Task<IActionResult> GetAsync([FromRoute] string idOrSlug)
+        public async Task<IActionResult> GetAsync([FromRoute] string idOrSlug
+                                                 , CancellationToken token)
         {
            
 
-            var movie = await _movieService.GetAsync(idOrSlug);
+            var movie = await _movieService.GetAsync(idOrSlug , token);
            
 
             if(movie is null)
@@ -41,27 +44,28 @@ namespace Movies.Applications.Controllers
         }
 
         [HttpGet(MagicStrings.ApiEndpoints.Movies.GetAll)]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync(CancellationToken token)
         {
-            var movies = await _movieService.GetAllAsync();
+            var movies = await _movieService.GetAllAsync(token);
             
             return Ok(movies);     
         }
 
         [HttpPut(MagicStrings.ApiEndpoints.Movies.Update)]
         public async Task<IActionResult> UpdateAsync([FromRoute]Guid id,
-                                                [FromBody]UpdateMovieRequste request)
+                                                [FromBody]UpdateMovieRequste request
+                                                 , CancellationToken token)
         {
-            var updated = await _movieService.UpdateAsync(request, id);
+            var updated = await _movieService.UpdateAsync(request, id, token);
             if(updated is null)  return NotFound();
            
             return Ok(updated);
         }
 
         [HttpDelete(MagicStrings.ApiEndpoints.Movies.Delete)]
-        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken token)
         {
-            var delete = await _movieService.SoftDeleteAsync(id);
+            var delete = await _movieService.SoftDeleteAsync(id , token);
             if(!delete)
             {
                 return NotFound();

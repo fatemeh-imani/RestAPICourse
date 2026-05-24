@@ -15,7 +15,7 @@ namespace Movies.Applications.Utilities
                 return;
             }
 
-            var json = await File.ReadAllTextAsync("Data/movies.json");
+            var json = await File.ReadAllTextAsync("Helpers/movies.json");
 
             var movies = JsonSerializer.Deserialize<List<MovieSeedModel>>(json);
 

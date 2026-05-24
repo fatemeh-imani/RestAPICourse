@@ -10,10 +10,10 @@ namespace Movies.Applications.MovieRepositories
 {
     public interface IMovieRepository
     {
-        public Task SaveAsyn();
-        Task CreateAsync(Movie movie);
-        Task<Movie> GetByIdAsync (Guid id);
-        Task<Movie> GetBySlugAsync (string Slug);
-        Task<IEnumerable<Movie>> GetAllAsync();
+        public Task SaveAsync(CancellationToken token = default);
+        Task CreateAsync(Movie movie, CancellationToken token = default);
+        Task<Movie> GetByIdAsync (Guid id, CancellationToken token = default);
+        Task<Movie> GetBySlugAsync (string Slug, CancellationToken token = default);
+        Task<IEnumerable<Movie>> GetAllAsync(CancellationToken token = default);
     }
 }

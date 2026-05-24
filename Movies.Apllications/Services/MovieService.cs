@@ -20,13 +20,14 @@ namespace Movies.Applications.Services
          IValidator<UpdateMovieRequste> _updateValidator
         ) : IMovieService
     {
-        public async Task<MovieResponce> CreateAsync(CreateMovieRequste movieRequest)
+        public async Task<MovieResponce> CreateAsync(CreateMovieRequste movieRequest
+                                                      ,CancellationToken token = default)
         {
-            await _createValidator.ValidateAndThrowAsync( movieRequest );
+            await _createValidator.ValidateAndThrowAsync( movieRequest , token);
 
             var slug = SlugGenerator.Generate(movieRequest.Title, movieRequest.YearOfRelease);
 
-            var existingMovie = await _movieRepository.GetBySlugAsync(slug);
+            var existingMovie = await _movieRepository.GetBySlugAsync(slug , token);
 
             if (existingMovie != null)
                 throw new Exception("Movie with same slug already exists");
@@ -41,13 +42,13 @@ namespace Movies.Applications.Services
 
             if (movieRequest.GenreIds?.Any() == true)
             {
-                var genres = await _genreRepository.GetByIdsAsync(movieRequest.GenreIds);
+                var genres = await _genreRepository.GetByIdsAsync(movieRequest.GenreIds , token);
                 movie.Genres = genres.ToList();
             }
 
-            await _movieRepository.CreateAsync(movie);
+            await _movieRepository.CreateAsync(movie , token);
 
-              await  _movieRepository.SaveAsyn();
+              await  _movieRepository.SaveAsync(token);
 
 
             return new MovieResponce
@@ -60,20 +61,20 @@ namespace Movies.Applications.Services
             };
         }
 
-        public async Task<bool> SoftDeleteAsync(Guid id)
+        public async Task<bool> SoftDeleteAsync(Guid id, CancellationToken token = default)
         {
-           var movie = await _movieRepository.GetByIdAsync(id);
+           var movie = await _movieRepository.GetByIdAsync(id , token);
 
             if (movie is null) return  false;
 
             movie.IsDeleted = true;
 
-              await _movieRepository.SaveAsyn();
+              await _movieRepository.SaveAsync(token);
             return true;     
         }
-        public async Task<MoviesResponce> GetAllAsync()
+        public async Task<MoviesResponce> GetAllAsync(CancellationToken token = default)
         {
-          var movies = await _movieRepository.GetAllAsync();
+          var movies = await _movieRepository.GetAllAsync(token);
             return new MoviesResponce
             {
                 Items = movies.Select(movie => new MovieResponce
@@ -88,11 +89,11 @@ namespace Movies.Applications.Services
             };
             
         }
-        public async Task<MovieResponce?> GetAsync(string idOrSlug)
+        public async Task<MovieResponce?> GetAsync(string idOrSlug, CancellationToken token = default)
         {
             var movie = Guid.TryParse(idOrSlug, out var id)
-               ? await _movieRepository.GetByIdAsync(id)
-               : await _movieRepository.GetBySlugAsync(idOrSlug);
+               ? await _movieRepository.GetByIdAsync(id , token)
+               : await _movieRepository.GetBySlugAsync(idOrSlug ,token);
 
             if (movie is null)
             {
@@ -109,11 +110,13 @@ namespace Movies.Applications.Services
             };
         }
 
-        public async Task<MovieResponce?> UpdateAsync(UpdateMovieRequste updateMovie , Guid id)
+        public async Task<MovieResponce?> UpdateAsync(UpdateMovieRequste updateMovie 
+                                                      , Guid id
+                                                       , CancellationToken token = default)
         {
-            await _updateValidator.ValidateAndThrowAsync(updateMovie);
+            await _updateValidator.ValidateAndThrowAsync(updateMovie , token);
 
-           var movie = await _movieRepository.GetByIdAsync(id);
+           var movie = await _movieRepository.GetByIdAsync(id , token);
 
             if (movie is null) return null;
             
@@ -122,10 +125,10 @@ namespace Movies.Applications.Services
             movie.Slug = SlugGenerator.Generate(updateMovie.Title, updateMovie.YearOfRelease);
             if (updateMovie.GenreIds?.Any() == true)
             {
-                var genres = await _genreRepository.GetByIdsAsync(updateMovie.GenreIds);
+                var genres = await _genreRepository.GetByIdsAsync(updateMovie.GenreIds, token);
                 movie.Genres = genres.ToList();
             }
-            await _movieRepository.SaveAsyn();
+            await _movieRepository.SaveAsync(token);
 
             return new MovieResponce
             {

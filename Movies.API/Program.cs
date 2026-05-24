@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Movies.API.Middleware;
 using Movies.Applications;
 using Movies.Applications.DataBaces.DBContext;
 using Movies.Applications.Utilities;
@@ -13,6 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication(builder.Configuration);
 var app = builder.Build();
+
+app.UseMiddleware<ValidationMappingMiddleware>();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

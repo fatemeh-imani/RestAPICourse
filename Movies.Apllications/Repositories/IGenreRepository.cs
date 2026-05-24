@@ -9,6 +9,7 @@ namespace Movies.Applications.Services
 {
     public interface IGenreRepository
     {
-        public Task<IEnumerable<Genre>> GetByIdsAsync(IEnumerable<Guid> ids);
+        public Task<IEnumerable<Genre>> GetByIdsAsync(IEnumerable<Guid> ids
+                                                      , CancellationToken token = default);
     }
 }
