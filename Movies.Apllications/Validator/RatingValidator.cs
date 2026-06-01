@@ -13,7 +13,7 @@ namespace Movies.Applications.Validator
     {
         public RatingValidator() 
         {
-            RuleFor(x => x.Score)
+            RuleFor(x => x.rating)
                 .InclusiveBetween(1, 5);
             // کاربر فقط می‌تواند بین ۱ تا ۵ امتیاز بدهد.
         }

@@ -4,6 +4,7 @@ using FluentValidation;
 using Movies.Applications.DataBaces.Models;
 
 using Movies.Applications.MovieRepositories;
+using Movies.Applications.Repositories;
 using Movies.Applications.Utilities;
 
 using Movies.Contracts.Requests;
@@ -14,6 +15,7 @@ namespace Movies.Applications.Services
     public class MovieService(
         IMovieRepository _movieRepository,
         IGenreRepository _genreRepository,
+        IRatingRepository _ratingRepository,
         IValidator<CreateMovieRequste> _createValidator,
          IValidator<UpdateMovieRequste> _updateValidator
         ) : IMovieService
@@ -70,9 +72,11 @@ namespace Movies.Applications.Services
               await _movieRepository.SaveAsync(token);
             return true;     
         }
-        public async Task<MoviesResponce> GetAllAsync(CancellationToken token = default)
+       
+        public async Task<MoviesResponce> GetAllAsync(string userId ,CancellationToken token = default)
         {
-          var movies = await _movieRepository.GetAllAsync(token);
+
+          var movies = await _movieRepository.GetAllAsync(userId , token);
             return new MoviesResponce
             {
                 Items = movies.Select(movie => new MovieResponce
@@ -81,13 +85,16 @@ namespace Movies.Applications.Services
                     Title = movie.Title,
                     YearOfRelease = movie.YearOfRelease,
                     Slug = movie.Slug,
-                    Genres = movie.Genres.Select(g => g.Name)
+                    Genres = movie.Genres,
+                    Rating = movie.Rating,
+                    UserRating = movie.UserRating
                 })
 
             };
             
         }
-        public async Task<MovieResponce?> GetAsync(string idOrSlug, CancellationToken token = default)
+       
+        public async Task<MovieResponce?> GetAsync(string idOrSlug,string userId , CancellationToken token = default)
         {
             var movie = Guid.TryParse(idOrSlug, out var id)
                ? await _movieRepository.GetByIdAsync(id , token)
@@ -98,26 +105,36 @@ namespace Movies.Applications.Services
                 return null;
             }
 
-            return new MovieResponce
-            {
-                Id = movie.Id,
-                Title = movie.Title,
-                YearOfRelease = movie.YearOfRelease,
-                Slug = movie.Slug,
-                Genres = movie.Genres.Select(g => g.Name)
-            };
+            var (avg, userRating) = await _ratingRepository.GetAverageAndUserRatingAsync(
+                                                                    movie.Id, userId, token);
+
+        return new MovieResponce
+                {
+                    Id = movie.Id,
+                    Title = movie.Title,
+                    YearOfRelease = movie.YearOfRelease,
+                    Slug = movie.Slug,
+                    Genres  = movie.Genres.Select(g => g.Name)
+,
+                    Rating = avg,
+                    UserRating = userRating
+                };
         }
 
         public async Task<MovieResponce?> UpdateAsync(UpdateMovieRequste updateMovie 
                                                       , Guid id
-                                                       , CancellationToken token = default)
+                                                      ,string userId
+                                                      , CancellationToken token = default)
         {
             await _updateValidator.ValidateAndThrowAsync(updateMovie , token);
 
            var movie = await _movieRepository.GetByIdAsync(id , token);
 
             if (movie is null) return null;
-            
+            var (avg, userRating) = await _ratingRepository.GetAverageAndUserRatingAsync(
+                                                        movie.Id, userId, token);
+
+
             movie.Title = updateMovie.Title;
             movie.YearOfRelease = updateMovie.YearOfRelease; 
             movie.Slug = SlugGenerator.Generate(updateMovie.Title, updateMovie.YearOfRelease);
@@ -126,6 +143,7 @@ namespace Movies.Applications.Services
                 var genres = await _genreRepository.GetByIdsAsync(updateMovie.GenreIds, token);
                 movie.Genres = genres.ToList();
             }
+
             await _movieRepository.SaveAsync(token);
 
             return new MovieResponce
@@ -134,7 +152,9 @@ namespace Movies.Applications.Services
                 Title = movie.Title,
                 YearOfRelease = movie.YearOfRelease,
                 Slug = movie.Slug,
-                Genres = movie.Genres.Select(g => g.Name)
+                Genres = movie.Genres.Select(g => g.Name),
+                Rating = avg,
+                UserRating = userRating
             };
         }
     }

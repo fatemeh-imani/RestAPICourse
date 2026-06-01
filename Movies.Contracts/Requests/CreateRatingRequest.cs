@@ -8,6 +8,6 @@ namespace Movies.Contracts.Requests
 {
     public class CreateRatingRequest
     {
-        public int Score { get; set; }
+        public  int rating { get; set; }
     }
 }

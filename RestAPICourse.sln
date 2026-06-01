@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Api", "..\..\..\Course\httpsgit.irdometrain-from-zero-to-hero-rest-apis-in-net\exercise_files\Authentication and Authorization in REST APIs_5.1\rest-api-course-final-master\Helpers\Identity.Api\Identity.Api.csproj", "{D0EEFFB8-4027-0926-6005-F71A23036E90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{1D509E3C-2201-4484-BDA2-579B57882565}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D509E3C-2201-4484-BDA2-579B57882565}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D509E3C-2201-4484-BDA2-579B57882565}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0EEFFB8-4027-0926-6005-F71A23036E90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0EEFFB8-4027-0926-6005-F71A23036E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0EEFFB8-4027-0926-6005-F71A23036E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0EEFFB8-4027-0926-6005-F71A23036E90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

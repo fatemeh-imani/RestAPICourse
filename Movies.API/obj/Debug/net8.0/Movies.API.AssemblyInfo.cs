@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Movies.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a29ec0586a3b817c1c390381d74fa34045f91b6c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+375317640b830c747585e1019374b1eb0827b712")]
 [assembly: System.Reflection.AssemblyProductAttribute("Movies.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Movies.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

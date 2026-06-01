@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "..\\..\\..\\Course\\httpsgit.irdometrain-from-zero-to-hero-rest-apis-in-net\\exercise_files\\Authentication and Authorization in REST APIs_5.1\\rest-api-course-final-master\\Helpers\\Identity.Api\\Identity.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Movies.API\\Movies.API.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

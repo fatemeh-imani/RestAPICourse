@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Movies.Contracts.SeedModel
+namespace ovies.Applications.DataBaces.Seed
 {
     public class MovieSeedModel
     {

@@ -1,10 +1,11 @@
 ﻿using Movies.Applications.DataBaces.DBContext;
 using Movies.Applications.DataBaces.Models;
-using Movies.Contracts.SeedModel;
+
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using ovies.Applications.DataBaces.Seed;
 
-namespace Movies.Applications.Utilities
+namespace Movies.Applications.DataBaces.Seed
 {
     public static class DbSeeder
     {
