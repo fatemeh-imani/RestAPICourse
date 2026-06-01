@@ -42,13 +42,16 @@ namespace Movies.Applications.Controllers
             return Ok(movie);
         }
 
+        //[Authorize(AuthConstants.TrustedMemberPolicyName)]
         [HttpGet(MagicStrings.ApiEndpoints.Movies.GetAll)]
-        public async Task<IActionResult> GetAllAsync(CancellationToken token)
+        public async Task<IActionResult> GetAllAsync(
+                       [FromQuery] GetAllMovieRequest request
+                       ,CancellationToken token)
         {
             var userId = HttpContext.GetUserId();
             if (userId is null) return Unauthorized("User is not authenticated.");
 
-            var movies = await _movieService.GetAllAsync(userId , token);
+            var movies = await _movieService.GetAllAsync(request , userId , token);
             
             return Ok(movies);     
         }

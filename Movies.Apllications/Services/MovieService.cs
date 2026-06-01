@@ -1,9 +1,11 @@
 ﻿
+using Azure.Core;
 using FluentValidation;
 
 using Movies.Applications.DataBaces.Models;
 
 using Movies.Applications.MovieRepositories;
+using Movies.Applications.Options;
 using Movies.Applications.Repositories;
 using Movies.Applications.Utilities;
 
@@ -73,10 +75,22 @@ namespace Movies.Applications.Services
             return true;     
         }
        
-        public async Task<MoviesResponce> GetAllAsync(string userId ,CancellationToken token = default)
+        public async Task<MoviesResponce> GetAllAsync(GetAllMovieRequest request, string userId ,CancellationToken token = default)
         {
+            var options = new GetAllMovieOption
+            {
+                Title = request.Title,
+                YearOfRelease = request.YearOfRelease,
+                SortBy = request.SortBy,
+                SortOrder = request.SortOrder,
+                Page = request.Page,
+                PageSize = request.PageSize,
+                UserId = userId
+            };
 
-          var movies = await _movieRepository.GetAllAsync(userId , token);
+            var movies = await _movieRepository.GetAllAsync( options  , token);
+
+
             return new MoviesResponce
             {
                 Items = movies.Select(movie => new MovieResponce
