@@ -1,5 +1,6 @@
 ﻿using Movies.Applications.DataBaces.Models;
 using Movies.Applications.Options;
+using Movies.Applications.Pagination;
 using Movies.Applications.Projections;
 
 
@@ -11,6 +12,6 @@ namespace Movies.Applications.MovieRepositories
         Task CreateAsync(Movie movie, CancellationToken token = default);
         Task<Movie?> GetByIdAsync (Guid id, CancellationToken token = default);
         Task<Movie> GetBySlugAsync (string Slug, CancellationToken token = default);
-        Task<IEnumerable<MovieReadModel>> GetAllAsync(GetAllMovieOption option, CancellationToken token = default);
+        Task<PagedResponse<MovieReadModel>> GetAllAsync(GetAllMovieOption option, CancellationToken token = default);
     }
 }

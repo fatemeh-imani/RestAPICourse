@@ -6,6 +6,7 @@ using Movies.Applications.DataBaces.Models;
 
 using Movies.Applications.MovieRepositories;
 using Movies.Applications.Options;
+using Movies.Applications.Pagination;
 using Movies.Applications.Repositories;
 using Movies.Applications.Utilities;
 
@@ -75,7 +76,7 @@ namespace Movies.Applications.Services
             return true;     
         }
        
-        public async Task<MoviesResponce> GetAllAsync(GetAllMovieRequest request, string userId ,CancellationToken token = default)
+        public async Task<PagedResponse<MovieResponce>> GetAllAsync(GetAllMovieRequest request, string userId ,CancellationToken token = default)
         {
             var options = new GetAllMovieOption
             {
@@ -91,9 +92,9 @@ namespace Movies.Applications.Services
             var movies = await _movieRepository.GetAllAsync( options  , token);
 
 
-            return new MoviesResponce
+            return new PagedResponse<MovieResponce>
             {
-                Items = movies.Select(movie => new MovieResponce
+                Items = movies.Items.Select(movie => new MovieResponce
                 {
                     Id = movie.Id,
                     Title = movie.Title,
@@ -102,8 +103,11 @@ namespace Movies.Applications.Services
                     Genres = movie.Genres,
                     Rating = movie.Rating,
                     UserRating = movie.UserRating
-                })
-
+                }).ToList(),
+                Page = movies.Page,
+                PageSize = movies.PageSize,
+                TotalCount = movies.TotalCount
+               
             };
             
         }

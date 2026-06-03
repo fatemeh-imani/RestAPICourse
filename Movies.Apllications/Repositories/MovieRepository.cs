@@ -2,6 +2,7 @@
 using Movies.Applications.DataBaces.DBContext;
 using Movies.Applications.DataBaces.Models;
 using Movies.Applications.Options;
+using Movies.Applications.Pagination;
 using Movies.Applications.Projections;
 
 namespace Movies.Applications.MovieRepositories
@@ -30,39 +31,44 @@ namespace Movies.Applications.MovieRepositories
                   .Include(x => x.Genres)
                   .SingleOrDefaultAsync(x => x.Slug == slug, token);
         }
-        public async Task<IEnumerable<MovieReadModel>> GetAllAsync( GetAllMovieOption options, CancellationToken token = default)
+        public async Task<PagedResponse<MovieReadModel>> GetAllAsync( GetAllMovieOption options, CancellationToken token = default)
         {
-            var query = _context.Movies.AsNoTracking();
-            //این داده‌ها فقط برای خواندن هستند، لازم نیست داخل Change Tracker نگه‌شان داری.
+            var page = options.Page < 1 ? 1 : options.Page;
+            var pageSize = options.PageSize < 1 ? 10 : options.PageSize;
 
-            
+            var query = _context.Movies.AsNoTracking();
+
             if (!string.IsNullOrWhiteSpace(options.Title))
             {
                 query = query.Where(m => m.Title.Contains(options.Title));
             }
+
             if (options.YearOfRelease.HasValue)
             {
                 query = query.Where(m => m.YearOfRelease == options.YearOfRelease.Value);
             }
 
+            var sortBy = options.SortBy?.ToLowerInvariant();
+            var sortOrder = options.SortOrder?.ToLowerInvariant();
+
             query = options.SortBy?.ToLowerInvariant() switch
             {
-                "title" => options.SortOrder == "desc"
+                "title" => sortOrder == "desc"
                     ? query.OrderByDescending(m => m.Title)
                     : query.OrderBy(m => m.Title),
-                "yearofrelease" => options.SortOrder == "desc"
+
+                "yearofrelease" => sortOrder == "desc"
                     ? query.OrderByDescending(m => m.YearOfRelease)
                     : query.OrderBy(m => m.YearOfRelease),
-                _ => query.OrderBy(m => m.Id) // سورت پیش‌فرض
+
+                _ => query.OrderBy(m => m.Id)
             };
 
-          
-            // فرمول: (PageNumber - 1) * PageSize
-            query = query
-                .Skip((options.Page - 1) * options.PageSize)
-                .Take(options.PageSize);
+            var totalCount = await query.CountAsync(token);
 
-            return await query
+            var items = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .AsSplitQuery()
                 .Select(m => new MovieReadModel
                 {
@@ -72,14 +78,22 @@ namespace Movies.Applications.MovieRepositories
                     YearOfRelease = m.YearOfRelease,
                     Genres = m.Genres.Select(g => g.Name).ToList(),
                     Rating = m.Ratings.Select(r => (float?)r.Score).Average(),
-                    UserRating = options.UserId == null ? null : m.Ratings
-                        .Where(r => r.UserId == options.UserId)
-                        .Select(r => (int?)r.Score)
-                        .FirstOrDefault()
+                    UserRating = options.UserId == null
+                        ? null
+                        : m.Ratings
+                            .Where(r => r.UserId == options.UserId)
+                            .Select(r => (int?)r.Score)
+                            .FirstOrDefault()
                 })
                 .ToListAsync(token);
 
-
+            return new PagedResponse<MovieReadModel>
+            {
+                Items = items,
+                Page = page,
+                PageSize = pageSize,
+                TotalCount = totalCount
+            };
         }
 
 
