@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Movies.Applications.Utilities;
+using Movies.Applications.Validator;
 using System.Net;
 
 namespace Movies.API.Middleware

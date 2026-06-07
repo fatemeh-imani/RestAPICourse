@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Movies.Applications.Utilities;
+namespace Movies.Applications.Validator;
 
   public record ValidationError(string PropertyName, string Message);
 

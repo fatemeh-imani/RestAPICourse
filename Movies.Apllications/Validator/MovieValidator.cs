@@ -27,7 +27,6 @@ namespace Movies.Applications.Validator
         }
 
 
-
         private void ValidateGenre()
         {
             RuleFor(x => x.GenreIds)

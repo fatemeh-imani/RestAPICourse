@@ -1,15 +1,11 @@
-﻿
-using Azure.Core;
-using FluentValidation;
-
+﻿using FluentValidation;
 using Movies.Applications.DataBaces.Models;
-
 using Movies.Applications.MovieRepositories;
 using Movies.Applications.Options;
 using Movies.Applications.Pagination;
 using Movies.Applications.Repositories;
 using Movies.Applications.Utilities;
-
+using Movies.Applications.Validator;
 using Movies.Contracts.Requests;
 using Movies.Contracts.Responces;
 
@@ -20,7 +16,8 @@ namespace Movies.Applications.Services
         IGenreRepository _genreRepository,
         IRatingRepository _ratingRepository,
         IValidator<CreateMovieRequste> _createValidator,
-         IValidator<UpdateMovieRequste> _updateValidator
+         IValidator<UpdateMovieRequste> _updateValidator,
+         IValidator<GetAllMovieRequest> _getAllRequstValidator
         ) : IMovieService
     {
         public async Task<MovieResponce> CreateAsync(CreateMovieRequste movieRequest
@@ -76,8 +73,12 @@ namespace Movies.Applications.Services
             return true;     
         }
        
-        public async Task<PagedResponse<MovieResponce>> GetAllAsync(GetAllMovieRequest request, string userId ,CancellationToken token = default)
+        public async Task<PagedResponse<MovieResponce>> GetAllAsync(GetAllMovieRequest request,
+                                                                  string userId,
+                                                                   CancellationToken token = default)
         {
+            await _getAllRequstValidator.ValidateAndThrowAsync(request , token);
+
             var options = new GetAllMovieOption
             {
                 Title = request.Title,
