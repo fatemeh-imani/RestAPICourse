@@ -2,15 +2,22 @@
 using Microsoft.AspNetCore.Mvc;
 using Movies.API.Auth;
 using Movies.Applications.Services;
+using Movies.API.MagicStrings;
 using Movies.Contracts.Requests;
+using Movies.Contracts.Responces;
 
-namespace Movies.Applications.Controllers
+namespace Movies.API.Controllers
 {
-    
+    [ApiController]
+    [ApiVersion("1.0")]
+    [Route(ApiEndpoints.Movies.Base)]
     public class MoviesController(IMovieService _movieService) : ControllerBase
     {
         [Authorize(AuthConstants.TrustedMemberPolicyName)]
-        [HttpPost(MagicStrings.ApiEndpoints.Movies.Create)]
+        [HttpPost(ApiEndpoints.Movies.Create)]
+        [ProducesResponseType(typeof(MovieResponce), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ValidationFailureResponse), StatusCodes.Status400BadRequest)]
+
         public async Task<IActionResult> CreateAsync([FromBody] CreateMovieRequste request
                                                      ,CancellationToken token)
         //متدهایی که async هستند و کار I/O دارند توکن بگذار
@@ -24,7 +31,9 @@ namespace Movies.Applications.Controllers
         //چون وقتی یک resource جدید ساخته می‌شود باید در header پاسخ Location بدهیم که آدرس آن resource چیست.
         
 
-        [HttpGet(MagicStrings.ApiEndpoints.Movies.Get, Name = "GetMovie")]
+        [HttpGet(ApiEndpoints.Movies.Get, Name = "GetMovie")]
+        [ProducesResponseType(typeof(MovieResponce), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync([FromRoute] string idOrSlug
                                                  , CancellationToken token)
         {
@@ -42,8 +51,9 @@ namespace Movies.Applications.Controllers
             return Ok(movie);
         }
 
-        //[Authorize(AuthConstants.TrustedMemberPolicyName)]
-        [HttpGet(MagicStrings.ApiEndpoints.Movies.GetAll)]
+        [Authorize(AuthConstants.TrustedMemberPolicyName)]
+        [HttpGet(ApiEndpoints.Movies.GetAll)]
+        [ProducesResponseType(typeof(List<MovieResponce>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync(
                        [FromQuery] GetAllMovieRequest request
                        ,CancellationToken token)
@@ -57,7 +67,10 @@ namespace Movies.Applications.Controllers
         }
 
         [Authorize(AuthConstants.TrustedMemberPolicyName)]
-        [HttpPut(MagicStrings.ApiEndpoints.Movies.Update)]
+        [HttpPut(ApiEndpoints.Movies.Update)]
+        [ProducesResponseType(typeof(MovieResponce), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ValidationFailureResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateAsync([FromRoute]Guid id,
                                                 [FromBody]UpdateMovieRequste request
                                                  , CancellationToken token)
@@ -72,7 +85,9 @@ namespace Movies.Applications.Controllers
         }
 
         [Authorize(AuthConstants.TrustedMemberPolicyName)]
-        [HttpDelete(MagicStrings.ApiEndpoints.Movies.Delete)]
+        [HttpDelete(ApiEndpoints.Movies.Delete)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken token)
         {
             var delete = await _movieService.SoftDeleteAsync(id , token);

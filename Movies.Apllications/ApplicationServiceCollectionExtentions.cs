@@ -27,7 +27,8 @@ namespace Movies.Applications
             })
       .AddRoles<IdentityRole>()
       .AddEntityFrameworkStores<RestDBContext>();
-    
+          
+
 
             services.AddValidatorsFromAssemblyContaining<IApplicationMarker>();
             services.AddScoped<IMovieRepository,MovieRepository>();

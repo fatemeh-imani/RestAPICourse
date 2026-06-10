@@ -2,13 +2,15 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.API.Auth;
-using Movies.Applications.MagicStrings;
+using Movies.API.MagicStrings;
 using Movies.Applications.Services;
 using Movies.Contracts.Requests;
 
 namespace Movies.API.Controllers
 {
-    
+    [ApiController]
+    [ApiVersion("1.0")]
+    [Route(ApiEndpoints.Movies.Base)]
     public class RatingController(IRatingService _ratingService) : ControllerBase
     {
       [Authorize(AuthConstants.TrustedMemberPolicyName)]
