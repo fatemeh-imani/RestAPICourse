@@ -26,6 +26,10 @@ namespace Movies.Applications.Repositories
                    .SingleOrDefaultAsync(x => x.MovieId == movieId && x.UserId == userId , token);      
 
         }
+        public async Task<int> GetMovieRatingCountAsync(Guid movieId , CancellationToken token=default)
+        {
+            return await _context.Ratings.CountAsync(x => x.MovieId == movieId , token);
+        }
        
         public async Task<float?> GetAverageRatingAsync(Guid movieId ,CancellationToken token)
         {

@@ -10,12 +10,16 @@ namespace Movies.Applications.Repositories
 {
     public interface  IRatingRepository
     {
+     
         Task<IEnumerable<MovieRating>> GetAllRatingAsync(string userId, CancellationToken token = default);
         Task DeleteRatingAsync(Guid movieId, string userId, CancellationToken token = default);
         Task<(float? Average, int? UserRating)> GetAverageAndUserRatingAsync(
                                                                 Guid movieId,
                                                                 string? userId,
                                                                 CancellationToken token = default);
+        Task<int> GetMovieRatingCountAsync(Guid movieId, CancellationToken token = default);
+
+
         Task<float?> GetAverageRatingAsync(Guid movieId, CancellationToken token);
         Task<Rating?> GetUserRatingAsync(Guid movieId, string userId, CancellationToken token = default);
         Task AddAsync(Rating rating, CancellationToken token = default);

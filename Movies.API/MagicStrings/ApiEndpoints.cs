@@ -8,19 +8,19 @@
 
             public const string Base = $"{ApiBase}/movies";
             public const string Create = "";
-            public const string Get = $"{""}/{{idOrSlug}}";
+            public const string Get = $"{{idOrSlug}}";
             public const string GetAll = "";
-            public const string Update = $"{""}/{{id:guid}}";
-            public const string Delete = $"{""}/{{id:guid}}";
+            public const string Update = $"{{id:guid}}";
+            public const string Delete = $"{{id:guid}}";
 
-            public const string Rate = $"{""}/{{id:guid}}/ratings";
-            public const string DeleteRating = $"{""}/{{id:guid}}/ratings";
+            public const string Rate = $"{{id:guid}}/ratings";
+            public const string DeleteRating = $"{{id:guid}}/ratings";
 
         }
         public static class Ratings
         {
-            public const string Base = $"{ApiBase}/ratings";
-            public const string GetUserRatings = $"{""}/me";
+            public const string Base = $"ratings";
+            public const string GetUserRatings = $"me";
         }
     }
 }

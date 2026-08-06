@@ -1,27 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.IdentityModel.Tokens;
 using Movies.API.Auth;
 using Movies.API.Middleware;
-//using Movies.API.Swagger;
 using Movies.Applications;
 using Movies.Applications.DataBaces.DBContext;
 using Movies.Applications.DataBaces.Seed;
+using Movies.Applications.Health;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-//builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddApplication(builder.Configuration);
 
-//builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
-//builder.Services.AddSwaggerGen(options =>
-//{
-//    options.OperationFilter<SwaggerDefaultValues>();
-//});
+builder.Services.AddHealthChecks()
+       .AddCheck<DatabaseHealthCkeck>(DatabaseHealthCkeck.Name);
 
 builder.Services.AddApiVersioning(options =>
 {
@@ -30,11 +25,6 @@ builder.Services.AddApiVersioning(options =>
     options.ReportApiVersions = true;
 });
 
-//builder.Services.AddVersionedApiExplorer(options =>
-//{
-//    options.GroupNameFormat = "'v'VVV";
-//    options.SubstituteApiVersionInUrl = true;
-//});
 
 // ===================== JWT Authentication =====================
 var jwtKey = builder.Configuration["Jwt:Key"];
@@ -89,23 +79,10 @@ using (var scope = app.Services.CreateScope())
     await DbSeeder.SeedAsync(context);
 }
 
-//if (app.Environment.IsDevelopment())
-//{
-//    var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-
-//    app.UseSwagger();
-//    app.UseSwaggerUI(options =>
-//    {
-//        foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
-//        {
-//            options.SwaggerEndpoint(
-//                $"/swagger/{description.GroupName}/swagger.json",
-//                description.GroupName.ToUpperInvariant());
-//        }
-//    });
-//}
 
 app.UseMiddleware<ValidationMappingMiddleware>();
+
+app.MapHealthChecks("_health");
 
 app.UseHttpsRedirection();
 

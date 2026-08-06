@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "QowfylHbJ8E=",
+  "dgSpecHash": "WuT7qRMxHGQ=",
   "success": true,
   "projectFilePath": "F:\\d\\REST\\RestAPI\\RestAPICourse\\Movies.Apllications\\Movies.Applications.csproj",
   "expectedPackageFiles": [
@@ -38,6 +38,12 @@
     "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.0\\microsoft.extensions.dependencyinjection.9.0.0.nupkg.sha512",
     "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.7\\microsoft.extensions.dependencyinjection.abstractions.10.0.7.nupkg.sha512",
     "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.dependencymodel\\9.0.0\\microsoft.extensions.dependencymodel.9.0.0.nupkg.sha512",
+    "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.diagnostics.abstractions\\8.0.1\\microsoft.extensions.diagnostics.abstractions.8.0.1.nupkg.sha512",
+    "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.diagnostics.healthchecks\\8.0.28\\microsoft.extensions.diagnostics.healthchecks.8.0.28.nupkg.sha512",
+    "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.diagnostics.healthchecks.abstractions\\8.0.28\\microsoft.extensions.diagnostics.healthchecks.abstractions.8.0.28.nupkg.sha512",
+    "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.diagnostics.healthchecks.entityframeworkcore\\8.0.28\\microsoft.extensions.diagnostics.healthchecks.entityframeworkcore.8.0.28.nupkg.sha512",
+    "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\8.0.0\\microsoft.extensions.fileproviders.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\8.0.1\\microsoft.extensions.hosting.abstractions.8.0.1.nupkg.sha512",
     "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.identity.core\\8.0.27\\microsoft.extensions.identity.core.8.0.27.nupkg.sha512",
     "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.identity.stores\\8.0.27\\microsoft.extensions.identity.stores.8.0.27.nupkg.sha512",
     "C:\\Users\\imani\\.nuget\\packages\\microsoft.extensions.logging\\9.0.0\\microsoft.extensions.logging.9.0.0.nupkg.sha512",
